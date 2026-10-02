@@ -5,6 +5,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.3.0] - October 2026
+
+### Added (Phase 2: Core Dashboard Only)
+- **Executive Flight Deck Layout (`src/App.tsx`):**
+  - Integrated View 1 (Core Dashboard) reading live state from `GET /api/state`.
+  - Implemented the 4-tier visual life hierarchy + Finite Enabler:
+    - **Header:** Cycle dates, explicit Cycle Week 1 badge (`CYCLE-W01`), and core question anchor (*"Am I spending my limited time and energy in accordance with the life I said I wanted?"*).
+    - **Top Sensor:** Independence transition gateway (₹5 Cr capital OR ₹2L/month HIFY recurring) alongside a deterministic attention drift indicator.
+    - **Tier 1 — Foundation:** Health & physical strength (baseline `~60 kg`, directional target 70–74 kg, workouts, sleep, energy) + Spiritual daily morning Kriya routine.
+    - **Tier 2 — Protection:** Family container (protected weekend half-day block status and 24-day dedicated vacation pacing).
+    - **Tier 3 — Financial Engine:** Corporate job financial security (funding mechanism, no extra effort encouraged) + Trading discipline (₹70L capital, ~25% annualized target, weekend review, zero ad-hoc intraday trades).
+    - **Tier 4 — Impact Engine:** HIFY funnel with strict visual distinction between Primary Business Outcome (Cohort Enrolments), Primary Growth Bottleneck (Qualified Masterclass Viewers, 3,000 viewer target), Conversion Efficiency (%), Downstream Community (1,000 member vision), and Subordinate Effort (YouTube & Reels).
+    - **Finite Enabler:** Website & Nexus container prominently displaying *"POLISH NEVER BLOCKS FREEZE"*, category breakdown (Core, Conversion, Experience, Polish), and automatic *"READY TO FREEZE"* status when freeze-blocking work completes.
+    - **Current Week Section:** Active cycle week commitments (completion checkboxes) and the explicit "NOT DOING" barrier.
+- **Deterministic Drift Module (`src/utils/drift.ts`):**
+  - Evaluates priority cannibalization, website container creep, distribution effort/bottleneck gaps, trading review omission, and health consistency.
+  - Safe against false positives: unrecorded metrics (`null`) never trigger false drift.
+  - Displays calm neutral message *"Foundation and priorities are within the current operating plan."* when no drift exists.
+- **Empty & Error State Handling:**
+  - Restrained loading skeleton (`LoadingState.tsx`).
+  - Error recovery view (`ErrorState.tsx`) with retry action when API is unavailable.
+- **Automated Test Suite:**
+  - Added 11 tests in `tests/dashboard.test.js` covering null semantics, cycle week semantics, transition thresholds, HIFY outcome vs bottleneck distinction, website freeze criteria, and deterministic drift rules (27 total tests passing).
+
+---
+
 ## [0.2.1] - October 2026
 
 ### Fixed & Refined (Phase 1 Review Corrections)
@@ -40,7 +66,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Frontend Scaffolding:**
   - React 18, TypeScript, Vite, Tailwind CSS, Lucide React icons.
   - Calm executive dark theme color palette.
-  - Phase 1 status verification view connecting to `/api/health`.
 - **Automated Test Suite (`tests/storage.test.js`, `tests/api.test.js`):**
   - Automated unit and integration tests.
 
