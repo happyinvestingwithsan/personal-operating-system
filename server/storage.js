@@ -84,6 +84,28 @@ export class StorageEngine {
   }
 
   /**
+   * Thread-safe, serialized atomic read-modify-write operation.
+   * Guarantees that mutatorFn receives the freshest state and writes atomically
+   * before any subsequent mutation can read or modify state.
+   */
+  async mutateState(mutatorFn) {
+    return new Promise((resolve, reject) => {
+      this._writeQueue = this._writeQueue
+        .then(async () => {
+          const currentState = await this.readState();
+          const updatedState = await mutatorFn(currentState);
+          const validation = validateState(updatedState);
+          if (!validation.valid) {
+            throw new Error(`Cannot write invalid state: ${validation.errors.join(', ')}`);
+          }
+          const result = await this._writeStateDirect(updatedState, true);
+          resolve({ state: updatedState, result });
+        })
+        .catch(reject);
+    });
+  }
+
+  /**
    * Internal direct atomic write implementation.
    */
   async _writeStateDirect(state, createBackupSnapshot = true) {

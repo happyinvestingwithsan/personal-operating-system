@@ -21,10 +21,32 @@ This repository is governed by strict anti-rabbit-hole principles and a closed-l
 - **[Fortnightly Review Template](FORTNIGHTLY_REVIEW_TEMPLATE.md):** Bi-weekly 9-question audit and ChatGPT prompt export template.
 - **[Changelog](CHANGELOG.md):** Project version history and milestone tracking.
 
+## Running Locally (Phase 1)
+
+In Phase 1, the local Node API server and the Vite development server run as separate processes:
+
+1. **Start the local storage & API server** (Port 3001):
+   ```bash
+   npm run server
+   # or: npm start
+   ```
+2. **Start the Vite frontend development server** (Port 5173, proxies `/api` requests to `localhost:3001`):
+   ```bash
+   npm run dev
+   ```
+3. **Run automated test suite** (Node 24 native test runner):
+   ```bash
+   npm test
+   ```
+4. **Compile production build**:
+   ```bash
+   npm run build
+   ```
+
 ---
 
 ## Development Status
 
-- **Cycle:** October 2026 – March 31, 2027
-- **Current Version:** `0.1.0` (Strategic & Governance Baseline)
-- **Status:** Architecture and governance approved; application implementation has not yet started.
+- **Cycle:** October 1, 2026 – March 31, 2027 (26 weeks)
+- **Current Version:** `0.2.0` (Phase 1: Persistence & Storage Engine Verified)
+- **Status:** Phase 1 storage engine and REST API verified with 16 automated tests; Phase 2 UI intentionally deferred pending review.

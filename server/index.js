@@ -47,20 +47,20 @@ app.get('/api/state', async (req, res) => {
 });
 
 /**
- * Update entire state (atomic write with schema validation)
+ * Update entire state (atomic serialized read-modify-write with schema validation)
  */
 app.post('/api/state', async (req, res) => {
   try {
     const newState = req.body;
-    const writeResult = await defaultStorage.writeState(newState);
-    res.json({ success: true, ...writeResult });
+    const { result } = await defaultStorage.mutateState(() => newState);
+    res.json({ success: true, ...result });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 });
 
 /**
- * Update or append a specific week record
+ * Update or append a specific week record (serialized read-modify-write)
  */
 app.post('/api/week', async (req, res) => {
   try {
@@ -69,24 +69,25 @@ app.post('/api/week', async (req, res) => {
       return res.status(400).json({ error: 'Week record must contain an "id".' });
     }
 
-    const state = await defaultStorage.readState();
-    const index = state.weeks.findIndex((w) => w.id === weekData.id);
+    const { state } = await defaultStorage.mutateState((currentState) => {
+      const index = currentState.weeks.findIndex((w) => w.id === weekData.id);
+      if (index >= 0) {
+        currentState.weeks[index] = { ...currentState.weeks[index], ...weekData };
+      } else {
+        currentState.weeks.push(weekData);
+      }
+      return currentState;
+    });
 
-    if (index >= 0) {
-      state.weeks[index] = { ...state.weeks[index], ...weekData };
-    } else {
-      state.weeks.push(weekData);
-    }
-
-    await defaultStorage.writeState(state);
-    res.json({ success: true, week: index >= 0 ? state.weeks[index] : weekData });
+    const updatedWeek = state.weeks.find((w) => w.id === weekData.id);
+    res.json({ success: true, week: updatedWeek });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 /**
- * Update or append a website task
+ * Update or append a website task (serialized read-modify-write)
  */
 app.post('/api/website-task', async (req, res) => {
   try {
@@ -95,24 +96,25 @@ app.post('/api/website-task', async (req, res) => {
       return res.status(400).json({ error: 'Task must contain an "id".' });
     }
 
-    const state = await defaultStorage.readState();
-    const index = state.website_tasks.findIndex((t) => t.id === taskData.id);
+    const { state } = await defaultStorage.mutateState((currentState) => {
+      const index = currentState.website_tasks.findIndex((t) => t.id === taskData.id);
+      if (index >= 0) {
+        currentState.website_tasks[index] = { ...currentState.website_tasks[index], ...taskData };
+      } else {
+        currentState.website_tasks.push(taskData);
+      }
+      return currentState;
+    });
 
-    if (index >= 0) {
-      state.website_tasks[index] = { ...state.website_tasks[index], ...taskData };
-    } else {
-      state.website_tasks.push(taskData);
-    }
-
-    await defaultStorage.writeState(state);
-    res.json({ success: true, task: index >= 0 ? state.website_tasks[index] : taskData });
+    const updatedTask = state.website_tasks.find((t) => t.id === taskData.id);
+    res.json({ success: true, task: updatedTask });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 /**
- * Save or update a fortnightly review
+ * Save or update a fortnightly review (serialized read-modify-write)
  */
 app.post('/api/review', async (req, res) => {
   try {
@@ -121,17 +123,18 @@ app.post('/api/review', async (req, res) => {
       return res.status(400).json({ error: 'Review must contain an "id".' });
     }
 
-    const state = await defaultStorage.readState();
-    const index = state.fortnightly_reviews.findIndex((r) => r.id === reviewData.id);
+    const { state } = await defaultStorage.mutateState((currentState) => {
+      const index = currentState.fortnightly_reviews.findIndex((r) => r.id === reviewData.id);
+      if (index >= 0) {
+        currentState.fortnightly_reviews[index] = { ...currentState.fortnightly_reviews[index], ...reviewData };
+      } else {
+        currentState.fortnightly_reviews.push(reviewData);
+      }
+      return currentState;
+    });
 
-    if (index >= 0) {
-      state.fortnightly_reviews[index] = { ...state.fortnightly_reviews[index], ...reviewData };
-    } else {
-      state.fortnightly_reviews.push(reviewData);
-    }
-
-    await defaultStorage.writeState(state);
-    res.json({ success: true, review: index >= 0 ? state.fortnightly_reviews[index] : reviewData });
+    const updatedReview = state.fortnightly_reviews.find((r) => r.id === reviewData.id);
+    res.json({ success: true, review: updatedReview });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

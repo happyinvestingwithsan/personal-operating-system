@@ -62,7 +62,7 @@ The system does NOT treat life arenas as equal-priority cards. It enforces a str
 2. **TIER 2 — PROTECTION: Family Container**
    - Protected weekly family time, planned family outings, 24 vacation/travel days across 6 months, calm presence.
 3. **TIER 3 — FINANCIAL ENGINE: Corporate Job + Trading**
-   - **Corporate Job:** Financial security until transition conditions are met (₹5 Cr capital / ₹3.6L/mo recurring). The job is a funding mechanism, not long-term identity. No additional job effort is encouraged.
+   - **Corporate Job:** Financial security until transition conditions are met (capital reaches ₹5 Cr OR HIFY reaches ₹2L/month). The job is a funding mechanism, not long-term identity. No additional job effort is encouraged.
    - **Trading:** Capital growth targeting ~25% annualized return on current capital (~₹70L). Tracks Indian equity execution, US equity development, and F&O execution/review. No trading terminal or complex strategy tools.
 4. **TIER 4 — IMPACT ENGINE: HIFY + Community**
    - Primary long-term life impact engine: Content → Masterclass → Cohort → Pathfinder → Retention.
@@ -277,7 +277,7 @@ The biggest failure mode in this operating system is NOT complete inactivity. It
 ├────────────────────────────────────────────────────────────────────────┤
 │                                                                        │
 │  TOP SENSORS: TRANSITION & DRIFT                                       │
-│  • Job Transition: ₹70L / ₹5.0 Cr Capital  │  HIFY: ₹0.8L / ₹3.6L/mo   │
+│  • Job Transition: ₹70L / ₹5.0 Cr Capital  │  HIFY: ₹0.8L / ₹2.0L/mo   │
 │  • DRIFT SENSOR: Website work exceeded planned allocation by 3.5 hrs   │
 │                                                                        │
 │  FOUNDATION (Health, Spiritual, Family)                                │

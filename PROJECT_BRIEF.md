@@ -102,7 +102,7 @@ Left unconstrained, work expands to consume all available energy:
 - **Current Salary:** ~₹1.8 Lakh/month.
 - **Transition Indicators (Long-Term Framework):**
   - *Option A:* Personal wealth/capital reaches ~₹5 Crore.
-  - *Option B:* Happy Investing generates ~₹3.6 Lakh/month (~2× corporate salary).
+  - *Option B:* Happy Investing generates ~₹2 Lakh/month.
 - **Boundary:** The system tracks metrics against these indicators; it never makes career prescriptions.
 
 ### Family Protection

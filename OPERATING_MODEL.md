@@ -45,7 +45,7 @@ The Personal Operating System operates on a strict **Priority Hierarchy**. Lower
 | **HIFY Members** | ~45 active members in 2026 | ~50 for 2026 $\rightarrow$ scaling to 500–700+ | Impact | Active members on scalable infrastructure |
 | **Distribution** | Masterclass views ad-hoc | ~3,000 qualified Masterclass viewers | Bottleneck | Masterclass views & conversion rate |
 | **Website** | Active development, high cognitive load | **FROZEN / Maintenance Mode** | Milestone | Core & Conversion backlog completed |
-| **Job Transition** | ₹1.8 Lakh/month salary | Progress toward ₹5 Cr or ₹3.6 Lakh/mo HIFY | Indicator | Capital & HIFY recurring monthly income |
+| **Job Transition** | ₹1.8 Lakh/month salary | Progress toward ₹5 Cr or ₹2 Lakh/month HIFY | Indicator | Capital & HIFY recurring monthly income |
 
 ---
 

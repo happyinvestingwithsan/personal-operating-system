@@ -37,7 +37,7 @@ Every capability in this system must be categorized into one of four tiers:
 | Area | Feature / Capability | Description |
 | :--- | :--- | :--- |
 | **Visualization** | **Historical Drift Heatmap/Trend** | Simple 6-week view showing trend of Health vs Website vs Family allocation. |
-| **Transition** | **Job Transition Progress Gauge** | Visual bar comparing current capital toward ₹5 Cr and HIFY monthly revenue toward ₹3.6 Lakh. |
+| **Transition** | **Job Transition Progress Gauge** | Visual bar comparing current capital toward ₹5 Cr and HIFY monthly revenue toward ₹2 Lakh. |
 | **Content** | **Content-to-Masterclass Funnel View** | Visual depiction: Videos/Reels $\rightarrow$ Masterclass Viewers $\rightarrow$ Cohort conversions. |
 | **Decisions** | **Trading Decision Journal** | Simple log of weekend trading decisions (bought, sold, held, rebalanced) to prevent ad-hoc mid-week trading. |
 

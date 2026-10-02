@@ -17,7 +17,7 @@ export function getSeedState() {
       start_date: "2026-10-01",
       end_date: "2027-03-31",
       total_weeks: 26,
-      current_week_id: "2026-W40",
+      current_week_id: "CYCLE-W01",
       description: "Local-first progress control cycle across 4 priority tiers and finite website completion."
     },
     goals: [
@@ -31,7 +31,7 @@ export function getSeedState() {
         target_type: "DIRECTIONAL",
         target_value: "Move toward ~70–74 kg with physical strength and high vitality",
         baseline_value: "~60 kg (rebuilding strength after multi-year drop from ~74 kg)",
-        current_value: "60.5 kg",
+        current_value: "Not yet recorded",
         status: "ON_TRACK",
         notes: "Track workouts, kriya, sleep, and energy neutrally. System makes no medical diagnoses."
       },
@@ -71,7 +71,7 @@ export function getSeedState() {
         title: "Maintain Corporate Income toward Independence Threshold",
         why_it_matters: "Provides baseline financial security until transition conditions are met.",
         target_type: "COMMITTED",
-        target_value: "Maintain salary; progress toward ₹5 Cr liquid capital & ₹3.6L/mo recurring HIFY revenue",
+        target_value: "Maintain salary; progress toward ₹5 Cr liquid capital OR ₹2L/month recurring HIFY revenue",
         baseline_value: "Corporate salary active; ₹70L liquid capital",
         current_value: "Corporate salary active; ₹70L liquid capital",
         status: "ON_TRACK",
@@ -205,8 +205,9 @@ export function getSeedState() {
     ],
     weeks: [
       {
-        id: "2026-W40",
+        id: "CYCLE-W01",
         cycle_week_number: 1,
+        calendar_week_id: "2026-W40",
         start_date: "2026-10-01",
         end_date: "2026-10-04",
         theme: "Operating Rhythm Foundation & Baseline Setup",
@@ -218,7 +219,7 @@ export function getSeedState() {
         ],
         commitments: [
           {
-            id: "comm_w40_01",
+            id: "comm_w01_01",
             arena: "HEALTH",
             title: "Re-establish daily strength & Kriya foundation",
             target_outcome: "Complete 3 strength sessions and 4 Kriya mornings",
@@ -226,7 +227,7 @@ export function getSeedState() {
             notes: ""
           },
           {
-            id: "comm_w40_02",
+            id: "comm_w01_02",
             arena: "FAMILY",
             title: "Protect weekend family half-day block",
             target_outcome: "Zero work interruption during family block",
@@ -234,7 +235,7 @@ export function getSeedState() {
             notes: ""
           },
           {
-            id: "comm_w40_03",
+            id: "comm_w01_03",
             arena: "TRADING",
             title: "Conduct disciplined weekend portfolio review",
             target_outcome: "Execute planned allocation check without screen browsing",
@@ -242,23 +243,23 @@ export function getSeedState() {
             notes: ""
           }
         ],
-        // Zero fabricated actuals - strictly populated by user inputs
+        // null = not recorded yet; 0 = explicitly measured zero
         actuals: {
-          health_workouts_completed: 0,
-          health_kriya_days: 0,
+          health_workouts_completed: null,
+          health_kriya_days: null,
           health_weight_kg: null,
-          health_sleep_notes: "",
-          health_energy_level: "",
-          family_half_day_protected: false,
-          family_vacation_days_logged: 0,
-          trading_review_completed: false,
-          trading_decisions_summary: "",
-          hify_masterclass_viewers: 0,
-          hify_cohort_conversions: 0,
-          hify_active_members: 0,
-          content_youtube_published: 0,
-          content_reels_published: 0,
-          website_hours_logged: 0
+          health_sleep_notes: null,
+          health_energy_level: null,
+          family_half_day_protected: null,
+          family_vacation_days_logged: null,
+          trading_review_completed: null,
+          trading_decisions_summary: null,
+          hify_masterclass_viewers: null,
+          hify_cohort_conversions: null,
+          hify_active_members: null,
+          content_youtube_published: null,
+          content_reels_published: null,
+          website_hours_logged: null
         }
       }
     ],

@@ -38,10 +38,15 @@ test('Storage Engine Test Suite', async (t) => {
     const state = await storage.readState();
     assert.equal(state.version, '1.1.0');
     assert.equal(state.cycle.id, '2026-H2');
+    assert.equal(state.cycle.current_week_id, 'CYCLE-W01');
     assert.equal(state.goals.length, 7);
     assert.equal(state.website_tasks.length, 9);
     assert.equal(state.weeks.length, 1);
-    assert.equal(state.weeks[0].id, '2026-W40');
+
+    // Week semantics check
+    assert.equal(state.weeks[0].id, 'CYCLE-W01');
+    assert.equal(state.weeks[0].cycle_week_number, 1);
+    assert.equal(state.weeks[0].calendar_week_id, '2026-W40');
 
     // Confirm physical files created
     const fileExists = await fs.stat(storage.stateFile).then(() => true).catch(() => false);
@@ -51,7 +56,32 @@ test('Storage Engine Test Suite', async (t) => {
     assert.ok(backups.length >= 1, 'Initial backup should exist');
   });
 
-  await t.test('2. Normal read and write persists updates atomically', async () => {
+  await t.test('2. Seed integrity: no fabricated health value, ₹2L/month threshold, and null actuals', async () => {
+    const storage = new StorageEngine({ dataDir: tempDir });
+    await storage.initialize();
+
+    const state = await storage.readState();
+
+    // Health goal: no fabricated 60.5 kg
+    const healthGoal = state.goals.find((g) => g.id === 'goal_health_strength');
+    assert.ok(healthGoal);
+    assert.equal(healthGoal.current_value, 'Not yet recorded');
+    assert.ok(!JSON.stringify(state).includes('60.5'), 'No fabricated 60.5 should exist anywhere in state');
+
+    // Financial threshold: ₹2L/month, not ₹3.6L
+    const jobGoal = state.goals.find((g) => g.id === 'goal_financial_job');
+    assert.ok(jobGoal);
+    assert.ok(jobGoal.target_value.includes('₹2L/month'), 'Job goal should reference ₹2L/month threshold');
+    assert.ok(!JSON.stringify(state).includes('3.6L'), 'No stale 3.6L reference should exist anywhere in state');
+
+    // Null vs zero semantics in unrecorded weekly actuals
+    const w1Actuals = state.weeks[0].actuals;
+    assert.equal(w1Actuals.health_workouts_completed, null, 'Unrecorded workout metric should be null, not 0');
+    assert.equal(w1Actuals.hify_masterclass_viewers, null, 'Unrecorded masterclass viewers should be null, not 0');
+    assert.equal(w1Actuals.website_hours_logged, null, 'Unrecorded website hours should be null, not 0');
+  });
+
+  await t.test('3. Normal read and write persists updates atomically', async () => {
     const storage = new StorageEngine({ dataDir: tempDir });
     await storage.initialize();
 
@@ -67,7 +97,7 @@ test('Storage Engine Test Suite', async (t) => {
     assert.equal(reloaded.weeks[0].actuals.health_workouts_completed, 4);
   });
 
-  await t.test('3. Schema validation rejects invalid state structures', async () => {
+  await t.test('4. Schema validation rejects invalid state structures', async () => {
     const storage = new StorageEngine({ dataDir: tempDir });
     await storage.initialize();
 
@@ -90,7 +120,7 @@ test('Storage Engine Test Suite', async (t) => {
     );
   });
 
-  await t.test('4. Backup creation and snapshot listing', async () => {
+  await t.test('5. Backup creation and snapshot listing', async () => {
     const storage = new StorageEngine({ dataDir: tempDir });
     await storage.initialize();
 
@@ -103,7 +133,7 @@ test('Storage Engine Test Suite', async (t) => {
     assert.ok(updatedBackups[0].includes('test_tag'));
   });
 
-  await t.test('5. Concurrent-safe sequential writes do not corrupt data', async () => {
+  await t.test('6. Concurrent-safe sequential writes do not corrupt data', async () => {
     const storage = new StorageEngine({ dataDir: tempDir });
     await storage.initialize();
 
@@ -124,7 +154,36 @@ test('Storage Engine Test Suite', async (t) => {
     assert.doesNotThrow(() => JSON.parse(content));
   });
 
-  await t.test('6. Corrupted JSON recovery restores from latest valid backup without data loss', async () => {
+  await t.test('7. Serialized mutateState prevents read-modify-write race conditions', async () => {
+    const storage = new StorageEngine({ dataDir: tempDir });
+    await storage.initialize();
+
+    // Initialize counter
+    const initialState = await storage.readState();
+    initialState.weeks[0].actuals.website_hours_logged = 0;
+    await storage.writeState(initialState);
+
+    // Dispatch 10 parallel atomic mutations incrementing the counter
+    const mutations = Array.from({ length: 10 }, () => async () => {
+      return storage.mutateState((currentState) => {
+        const currentCount = currentState.weeks[0].actuals.website_hours_logged ?? 0;
+        currentState.weeks[0].actuals.website_hours_logged = currentCount + 1;
+        return currentState;
+      });
+    });
+
+    await Promise.all(mutations.map((fn) => fn()));
+
+    const finalState = await storage.readState();
+    // With serialized read-modify-write, every single increment is applied
+    assert.equal(
+      finalState.weeks[0].actuals.website_hours_logged,
+      10,
+      'Concurrent mutateState calls should not lose any increment'
+    );
+  });
+
+  await t.test('8. Corrupted JSON recovery restores from latest valid backup without data loss', async () => {
     const storage = new StorageEngine({ dataDir: tempDir });
     await storage.initialize();
 
@@ -146,7 +205,7 @@ test('Storage Engine Test Suite', async (t) => {
     assert.ok(corruptArchive, 'Corrupted file must be preserved for forensic safety');
   });
 
-  await t.test('7. Interrupted write simulation leaves main state intact', async () => {
+  await t.test('9. Interrupted write simulation leaves main state intact', async () => {
     const storage = new StorageEngine({ dataDir: tempDir });
     await storage.initialize();
 
@@ -165,7 +224,7 @@ test('Storage Engine Test Suite', async (t) => {
     await fs.unlink(orphanTmp).catch(() => {});
   });
 
-  await t.test('8. Manual backup restoration', async () => {
+  await t.test('10. Manual backup restoration', async () => {
     const storage = new StorageEngine({ dataDir: tempDir });
     await storage.initialize();
 
