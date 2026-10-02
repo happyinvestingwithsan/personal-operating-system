@@ -28,7 +28,7 @@ export function CurrentWeekSection({ activeWeek }: CurrentWeekSectionProps) {
               <CheckSquare className="w-4 h-4 text-blue-400" />
               <h3 className="text-sm font-semibold text-slate-100">Key Commitments (Max 3–5)</h3>
             </div>
-            <span className="text-[11px] text-slate-400 font-mono">
+            <span className="text-xs text-slate-400 font-mono">
               {commitments.filter((c) => c.is_completed).length} / {commitments.length} Completed
             </span>
           </div>
@@ -54,7 +54,7 @@ export function CurrentWeekSection({ activeWeek }: CurrentWeekSectionProps) {
                     </span>
                   </div>
                   {item.target_outcome && (
-                    <p className="text-[11px] text-slate-400 mt-0.5">
+                    <p className="text-xs text-slate-400 mt-0.5">
                       Target: {item.target_outcome}
                     </p>
                   )}
@@ -63,7 +63,7 @@ export function CurrentWeekSection({ activeWeek }: CurrentWeekSectionProps) {
             ))}
           </div>
 
-          <p className="text-[11px] text-slate-400 italic mt-3">
+          <p className="text-xs text-slate-400 italic mt-3">
             Deliberately bounded. The goal is not to maximize task volume, but to execute what was committed.
           </p>
         </div>
@@ -76,7 +76,7 @@ export function CurrentWeekSection({ activeWeek }: CurrentWeekSectionProps) {
                 <Ban className="w-4 h-4 text-rose-400" />
                 <h3 className="text-sm font-semibold text-rose-300">The &ldquo;NOT DOING&rdquo; Barrier</h3>
               </div>
-              <span className="text-[11px] text-rose-400 font-mono">Explicitly Forbidden</span>
+              <span className="text-xs text-rose-400 font-mono">Explicitly Forbidden</span>
             </div>
 
             <p className="text-xs text-slate-300 mb-3">
@@ -96,7 +96,7 @@ export function CurrentWeekSection({ activeWeek }: CurrentWeekSectionProps) {
             </div>
           </div>
 
-          <p className="text-[11px] text-slate-400 italic mt-3">
+          <p className="text-xs text-slate-400 italic mt-3">
             Protecting attention by explicitly declaring what will NOT be touched this week.
           </p>
         </div>

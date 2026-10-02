@@ -28,7 +28,7 @@ Every capability in this system must be categorized into one of four tiers:
 | **Review** | **Fortnightly 9-Question Review** | Digital interface for the bi-weekly 9-question review workflow. |
 | **Integration** | **ChatGPT Review Prompt Export** | One-click copy of recent fortnightly data formatted into a ready-to-paste ChatGPT strategic prompt. |
 | **Website Control** | **Website Completion Tracker** | Finite list of remaining Core & Conversion tasks with a prominent progress bar toward **FROZEN** status. |
-| **Safety** | **Local SQLite + JSON Backup** | Automatic backup on data changes and 1-click JSON export. |
+| **Safety** | **Atomic JSON storage + JSON backups** | Automatic backup on data changes and 1-click JSON export. |
 
 ---
 

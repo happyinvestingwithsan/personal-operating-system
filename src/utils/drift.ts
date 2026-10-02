@@ -77,15 +77,5 @@ export function evaluateDrift(state: OperatingState | null): DriftObservation[] 
     });
   }
 
-  // Rule 5: Health Divergence
-  if (actuals.health_workouts_completed !== null && actuals.health_workouts_completed < 2) {
-    observations.push({
-      id: 'drift_health_workouts',
-      severity: 'OBSERVATION',
-      category: 'FOUNDATION',
-      message: 'Workout consistency below target for this week.'
-    });
-  }
-
   return observations;
 }

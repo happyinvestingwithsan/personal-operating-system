@@ -26,8 +26,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Empty & Error State Handling:**
   - Restrained loading skeleton (`LoadingState.tsx`).
   - Error recovery view (`ErrorState.tsx`) with retry action when API is unavailable.
+- **Phase 2 Correction Pass:**
+  - Fixed null vacation days in `ProtectionTier` to display "Not recorded" instead of "0 logged".
+  - Fixed content effort in `ImpactTier` to strictly handle null vs zero (`null + null` → "Not recorded", `0 + null` → "0 YT • Not recorded", `null + 0` → "Not recorded • 0 Reels", `0 + 0` → "0 YT • 0 Reels").
+  - Enforced 12px (`text-xs`) typography floor across body text, metric labels, and descriptions (10px permitted only for compact chips/badges).
+  - Removed single-week Health Divergence drift observation from `src/utils/drift.ts` to keep sensor conservative.
+  - Updated `MVP_SCOPE.md` storage safety description to "Atomic JSON storage + JSON backups".
+  - Refreshed project and task context files to remove stale references.
 - **Automated Test Suite:**
-  - Added 11 tests in `tests/dashboard.test.js` covering null semantics, cycle week semantics, transition thresholds, HIFY outcome vs bottleneck distinction, website freeze criteria, and deterministic drift rules (27 total tests passing).
+  - Added 15 tests in `tests/dashboard.test.js` covering null semantics, cycle week semantics, transition thresholds, HIFY outcome vs bottleneck distinction, website freeze criteria, conservative deterministic drift rules, and null/zero display regressions (32 total project tests passing).
 
 ---
 

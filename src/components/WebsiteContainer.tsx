@@ -61,7 +61,7 @@ export function WebsiteContainer({ tasks }: WebsiteContainerProps) {
           {/* Freeze-Blocking Work: Core & Conversion */}
           <div className="p-3 bg-surface-elevated rounded-lg border border-border/60 space-y-2">
             <div className="flex items-center justify-between pb-1 border-b border-border/40">
-              <span className="font-semibold text-slate-300 uppercase tracking-wider text-[11px]">
+              <span className="font-semibold text-slate-300 uppercase tracking-wider text-xs">
                 Freeze-Blocking Tasks (Core + Conversion)
               </span>
               <span className="text-[10px] text-amber-400 font-medium">Dictates Freeze</span>
@@ -94,7 +94,7 @@ export function WebsiteContainer({ tasks }: WebsiteContainerProps) {
           {/* Non-Blocking Polish & Secondary Experience */}
           <div className="p-3 bg-surface-elevated rounded-lg border border-border/60 space-y-2">
             <div className="flex items-center justify-between pb-1 border-b border-border/40">
-              <span className="font-semibold text-slate-300 uppercase tracking-wider text-[11px]">
+              <span className="font-semibold text-slate-300 uppercase tracking-wider text-xs">
                 Polish & Secondary (Non-Blocking)
               </span>
               <span className="text-[10px] text-slate-500 font-medium">Never Delays Freeze</span>
@@ -125,7 +125,7 @@ export function WebsiteContainer({ tasks }: WebsiteContainerProps) {
           </div>
         </div>
 
-        <p className="text-[11px] text-slate-400 italic text-center md:text-left">
+        <p className="text-xs text-slate-400 italic text-center md:text-left">
           When Core & Conversion complete, status shifts to FROZEN / Maintenance Mode. No new features permitted without passing CHANGE_CONTROL.md.
         </p>
       </div>

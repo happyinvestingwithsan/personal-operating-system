@@ -1,5 +1,6 @@
 import { Users, Calendar } from 'lucide-react';
 import { WeekActuals } from '../types.ts';
+import { formatVacationDisplay } from '../utils/formatters.ts';
 
 interface ProtectionTierProps {
   actuals: WeekActuals;
@@ -15,10 +16,7 @@ export function ProtectionTier({ actuals }: ProtectionTierProps) {
     );
   };
 
-  const formatDays = (val: number | null) => {
-    if (val === null) return <span className="text-slate-500 italic">0 logged</span>;
-    return <span className="font-mono text-slate-100">{val} days</span>;
-  };
+  const vacation = formatVacationDisplay(actuals.family_vacation_days_logged);
 
   return (
     <section className="mb-8">
@@ -41,7 +39,7 @@ export function ProtectionTier({ actuals }: ProtectionTierProps) {
                 {formatBoolean(actuals.family_half_day_protected)}
               </span>
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-xs text-slate-400">
               Zero coding or HIFY encroachment during this weekly container.
             </p>
           </div>
@@ -53,16 +51,20 @@ export function ProtectionTier({ actuals }: ProtectionTierProps) {
                 Dedicated Travel & Vacation Pacing
               </span>
               <span className="text-xs font-mono text-slate-200">
-                {formatDays(actuals.family_vacation_days_logged)} / 24 Days
+                {vacation.isRecorded ? (
+                  <span className="font-mono text-slate-100">{vacation.text}</span>
+                ) : (
+                  <span className="text-slate-500 italic">{vacation.text}</span>
+                )}
               </span>
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-xs text-slate-400">
               Pacing: ~1 major dedicated family experience every 2 months across the 6-month cycle.
             </p>
           </div>
         </div>
 
-        <p className="text-[11px] text-slate-400 mt-3 italic text-center md:text-left">
+        <p className="text-xs text-slate-400 mt-3 italic text-center md:text-left">
           Sacred boundary. Family presence is the emotional center; never sacrificed for website polish.
         </p>
       </div>

@@ -30,7 +30,7 @@ export function TopSensor({ state, driftObservations }: TopSensorProps) {
               <TrendingUp className="w-3.5 h-3.5 text-blue-400" />
               Career Transition Gateway
             </span>
-            <span className="text-[11px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <span className="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
               Corporate Job Protected
             </span>
           </div>
@@ -55,7 +55,7 @@ export function TopSensor({ state, driftObservations }: TopSensorProps) {
           </div>
 
           {jobGoal && (
-            <p className="text-[11px] text-slate-400 mt-2.5 italic">
+            <p className="text-xs text-slate-400 mt-2.5 italic">
               Job is a funding mechanism, not long-term identity. No additional job effort encouraged.
             </p>
           )}
@@ -69,11 +69,11 @@ export function TopSensor({ state, driftObservations }: TopSensorProps) {
                 Attention & Priority Sensor
               </span>
               {hasDrift ? (
-                <span className="text-[11px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-medium">
+                <span className="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-medium">
                   {driftObservations.length} Divergence Detected
                 </span>
               ) : (
-                <span className="text-[11px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-medium">
+                <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-medium">
                   Aligned
                 </span>
               )}
@@ -104,7 +104,7 @@ export function TopSensor({ state, driftObservations }: TopSensorProps) {
             )}
           </div>
 
-          <p className="text-[11px] text-slate-400 mt-3 italic">
+          <p className="text-xs text-slate-400 mt-3 italic">
             Reports factual divergence only. Software does not judge or assign arbitrary productivity scores.
           </p>
         </div>

@@ -37,14 +37,14 @@ export function FoundationTier({ goals, actuals }: FoundationTierProps) {
               <Heart className="w-4 h-4 text-rose-400" />
               <h3 className="text-sm font-semibold text-slate-100">Health & Physical Vitality</h3>
             </div>
-            <span className="text-[11px] text-slate-400 font-mono">Directional: ~70–74 kg</span>
+            <span className="text-xs text-slate-400 font-mono">Directional: ~70–74 kg</span>
           </div>
 
           <div className="grid grid-cols-2 gap-3 text-xs mb-3">
             <div className="p-2.5 bg-surface-elevated rounded border border-border/40">
               <span className="text-slate-400 block mb-1">Strength Workouts</span>
               <div className="text-sm">{formatMetric(actuals.health_workouts_completed, ' sessions')}</div>
-              <span className="text-[10px] text-slate-500">Target: 3–4 / week</span>
+              <span className="text-xs text-slate-500">Target: 3–4 / week</span>
             </div>
 
             <div className="p-2.5 bg-surface-elevated rounded border border-border/40">
@@ -56,7 +56,7 @@ export function FoundationTier({ goals, actuals }: FoundationTierProps) {
                   <span className="text-slate-500 italic">{healthGoal?.current_value || 'Not yet recorded'}</span>
                 )}
               </div>
-              <span className="text-[10px] text-slate-500">Baseline: ~60 kg</span>
+              <span className="text-xs text-slate-500">Baseline: ~60 kg</span>
             </div>
 
             <div className="p-2.5 bg-surface-elevated rounded border border-border/40">
@@ -70,7 +70,7 @@ export function FoundationTier({ goals, actuals }: FoundationTierProps) {
             </div>
           </div>
 
-          <p className="text-[11px] text-slate-400 italic">
+          <p className="text-xs text-slate-400 italic">
             Neutral personal inputs. Software makes no medical diagnoses or declaring arbitrary weight targets as healthy.
           </p>
         </div>
@@ -83,28 +83,28 @@ export function FoundationTier({ goals, actuals }: FoundationTierProps) {
                 <Moon className="w-4 h-4 text-indigo-400" />
                 <h3 className="text-sm font-semibold text-slate-100">Spiritual Foundation</h3>
               </div>
-              <span className="text-[11px] text-slate-400 font-mono">Daily Morning Routine</span>
+              <span className="text-xs text-slate-400 font-mono">Daily Morning Routine</span>
             </div>
 
             <div className="space-y-3 text-xs">
               <div className="p-3 bg-surface-elevated rounded border border-border/40 flex items-center justify-between">
                 <div>
                   <span className="text-slate-400 block mb-0.5">Daily Kriya Practice</span>
-                  <span className="text-[11px] text-slate-500">{spiritualGoal?.target_value}</span>
+                  <span className="text-xs text-slate-500">{spiritualGoal?.target_value}</span>
                 </div>
                 <div className="text-sm">
                   {formatMetric(actuals.health_kriya_days, ' / 7 days')}
                 </div>
               </div>
 
-              <div className="p-2.5 bg-surface-elevated/60 rounded border border-border/40 text-[11px] text-slate-300">
+              <div className="p-2.5 bg-surface-elevated/60 rounded border border-border/40 text-xs text-slate-300">
                 <span className="text-indigo-400 font-medium block mb-0.5">Protection Anchor:</span>
                 Morning inner alignment is protected before any technical work, emails, or marketing begins.
               </div>
             </div>
           </div>
 
-          <p className="text-[11px] text-slate-400 italic mt-3">
+          <p className="text-xs text-slate-400 italic mt-3">
             Baseline: Establishing daily consistency. Inner calm precedes all outward execution.
           </p>
         </div>

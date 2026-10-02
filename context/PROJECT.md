@@ -4,18 +4,23 @@
 - **Project ID:** personal-os
 - **Repository:** happyinvestingwithsan/personal-operating-system
 - **Trunk Branch:** main
-- **Integration Branch:** feature/storage-and-server
+- **Integration Branch:** dev
+- **Active Feature Branch:** feature/mvp-dashboard
 
 ## 2. High-Level Architecture
-- Core language and framework configuration.
+- Atomic JSON storage + automated JSON backups
+- Local Node REST API server (port 3001)
+- React 18 + TypeScript + Vite + Tailwind CSS flight deck
 - Local execution and verification commands:
   - `npm test`
+  - `npm run build`
 
 ## 3. Important Constraints & Non-Goals
-- Human approval required before merging into main.
+- Human/ChatGPT strategic review required before merging to `dev`.
+- `main` remains untouched until complete MVP is stable.
 - Strict scope control: zero unauthorized changes.
 
 ## 4. Development Conventions
-- Feature branches named `feature/task-XXXX`.
-- Standard commit messages: `feat(TASK-XXXX): <description>` or `fix(TASK-XXXX): <description>`.
-- Automated tests must pass prior to merge approval.
+- Development workflow: `main` → `dev` → `feature/*` → PR/Review → `dev`
+- Feature branches named `feature/<feature-name>`.
+- Automated tests and build must pass prior to merge review.

@@ -19,7 +19,7 @@ export function ErrorState({ error, onRetry }: ErrorStateProps) {
           <p className="text-xs text-slate-400">
             Could not retrieve operating state from the local Node server. Ensure the server is running on port 3001.
           </p>
-          <p className="text-[11px] font-mono text-slate-500 mt-2">{error}</p>
+          <p className="text-xs font-mono text-slate-500 mt-2">{error}</p>
         </div>
         <div className="pt-2">
           <button

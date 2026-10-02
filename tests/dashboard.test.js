@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { getSeedState } from '../server/seedData.js';
 import { evaluateDrift } from '../src/utils/drift.ts';
+import { formatVacationDisplay, formatContentEffort, formatGenericMetric } from '../src/utils/formatters.ts';
 
 test('Dashboard Logic & Presentation Rules Test Suite', async (t) => {
   await t.test('1. Null semantics: unrecorded metrics are null, not 0', () => {
@@ -122,5 +123,83 @@ test('Dashboard Logic & Presentation Rules Test Suite', async (t) => {
     const tradingOmitted = observations.find((o) => o.id === 'drift_trading_omitted');
     assert.ok(tradingOmitted);
     assert.equal(tradingOmitted.severity, 'WARNING');
+  });
+
+  await t.test('11. Regression: null vacation days do not display as zero', () => {
+    const resNull = formatVacationDisplay(null);
+    assert.equal(resNull.isRecorded, false);
+    assert.equal(resNull.text, 'Not recorded');
+    assert.ok(!resNull.text.includes('0 logged'), 'Must never say 0 logged');
+    assert.ok(!resNull.text.includes('0 / 24'), 'Must never say 0 / 24');
+  });
+
+  await t.test('12. Regression: null YouTube/Reels values do not display as zero', () => {
+    // null + null
+    const resBothNull = formatContentEffort(null, null);
+    assert.equal(resBothNull.isRecorded, false);
+    assert.equal(resBothNull.displayText, 'Not recorded');
+
+    // 0 + null
+    const resYtZeroReelsNull = formatContentEffort(0, null);
+    assert.equal(resYtZeroReelsNull.isRecorded, true);
+    assert.equal(resYtZeroReelsNull.displayText, '0 YT • Not recorded');
+
+    // null + 0
+    const resYtNullReelsZero = formatContentEffort(null, 0);
+    assert.equal(resYtNullReelsZero.isRecorded, true);
+    assert.equal(resYtNullReelsZero.displayText, 'Not recorded • 0 Reels');
+  });
+
+  await t.test('13. Regression: explicit zero still displays as zero', () => {
+    // Vacation days 0
+    const resVacationZero = formatVacationDisplay(0);
+    assert.equal(resVacationZero.isRecorded, true);
+    assert.equal(resVacationZero.text, '0 / 24 Days');
+
+    // 0 + 0
+    const resBothZero = formatContentEffort(0, 0);
+    assert.equal(resBothZero.isRecorded, true);
+    assert.equal(resBothZero.displayText, '0 YT • 0 Reels');
+
+    // Measured positive values
+    const resPositive = formatContentEffort(2, 4);
+    assert.equal(resPositive.displayText, '2 YT • 4 Reels');
+
+    // Generic metric 0 vs null
+    const resMetricNull = formatGenericMetric(null, ' sessions');
+    assert.equal(resMetricNull.text, 'Not recorded');
+    assert.equal(resMetricNull.isRecorded, false);
+
+    const resMetricZero = formatGenericMetric(0, ' sessions');
+    assert.equal(resMetricZero.text, '0 sessions');
+    assert.equal(resMetricZero.isRecorded, true);
+  });
+
+  await t.test('14. Regression: single-week low workouts do not create health drift', () => {
+    const seed = getSeedState();
+    // In Week 1, workouts is 1 (low, below 3-4 target), but no lower-tier priority was over-allocated
+    seed.weeks[0].actuals.health_workouts_completed = 1;
+    const observations1 = evaluateDrift(seed);
+    const healthDivergence1 = observations1.find((o) => o.category === 'FOUNDATION');
+    assert.equal(healthDivergence1, undefined, 'Single-week workout = 1 must NOT trigger health drift');
+
+    // In Week 1, workouts is 0, but no lower-tier priority was active
+    seed.weeks[0].actuals.health_workouts_completed = 0;
+    const observations0 = evaluateDrift(seed);
+    const healthDivergence0 = observations0.find((o) => o.category === 'FOUNDATION');
+    assert.equal(healthDivergence0, undefined, 'Single-week workout = 0 alone must NOT trigger health drift');
+  });
+
+  await t.test('15. Regression: seed data still contains no fabricated actuals', () => {
+    const seed = getSeedState();
+    seed.weeks.forEach((w) => {
+      Object.entries(w.actuals).forEach(([key, val]) => {
+        assert.equal(val, null, `Week ${w.id} actual ${key} must be null, found ${val}`);
+      });
+    });
+
+    const healthGoal = seed.goals.find((g) => g.id === 'goal_health_strength');
+    assert.equal(healthGoal.current_value, 'Not yet recorded');
+    assert.ok(!JSON.stringify(seed).includes('60.5'), '60.5 kg must not exist anywhere in seed');
   });
 });

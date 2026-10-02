@@ -33,7 +33,7 @@ export function FinancialTier({ actuals }: FinancialTierProps) {
                 <Briefcase className="w-4 h-4 text-purple-400" />
                 <h3 className="text-sm font-semibold text-slate-100">Corporate Job Security</h3>
               </div>
-              <span className="text-[11px] text-slate-400 font-mono">Funding Mechanism</span>
+              <span className="text-xs text-slate-400 font-mono">Funding Mechanism</span>
             </div>
 
             <div className="space-y-2 text-xs">
@@ -48,7 +48,7 @@ export function FinancialTier({ actuals }: FinancialTierProps) {
             </div>
           </div>
 
-          <p className="text-[11px] text-slate-400 italic mt-3">
+          <p className="text-xs text-slate-400 italic mt-3">
             The job is a funding mechanism, not long-term identity. No additional corporate effort is encouraged.
           </p>
         </div>
@@ -61,7 +61,7 @@ export function FinancialTier({ actuals }: FinancialTierProps) {
                 <BarChart2 className="w-4 h-4 text-emerald-400" />
                 <h3 className="text-sm font-semibold text-slate-100">Trading Capital Growth</h3>
               </div>
-              <span className="text-[11px] text-slate-400 font-mono">Target: ~25% Annualized</span>
+              <span className="text-xs text-slate-400 font-mono">Target: ~25% Annualized</span>
             </div>
 
             <div className="space-y-2 text-xs">
@@ -80,7 +80,7 @@ export function FinancialTier({ actuals }: FinancialTierProps) {
             </div>
           </div>
 
-          <p className="text-[11px] text-slate-400 italic mt-3">
+          <p className="text-xs text-slate-400 italic mt-3">
             No live terminal or ticker stream. Operates strictly in the weekend review container.
           </p>
         </div>
