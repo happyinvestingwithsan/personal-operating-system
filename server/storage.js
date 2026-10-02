@@ -100,8 +100,8 @@ export class StorageEngine {
       await fileHandle.close();
     }
 
-    // 3. Rename into place atomically
-    await fs.rename(tempFile, this.stateFile);
+    // 3. Rename into place atomically with Windows retry handling
+    await this._renameWithRetry(tempFile, this.stateFile);
 
     // 4. Create timestamped backup if requested
     let backupPath = null;
@@ -114,6 +114,24 @@ export class StorageEngine {
       timestamp: new Date().toISOString(),
       backupPath
     };
+  }
+
+  /**
+   * Cross-platform file rename with backoff retry to withstand transient Windows EPERM/EBUSY locks.
+   */
+  async _renameWithRetry(src, dest, maxRetries = 10, delayMs = 25) {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        await fs.rename(src, dest);
+        return;
+      } catch (err) {
+        if ((err.code === 'EPERM' || err.code === 'EBUSY') && attempt < maxRetries) {
+          await new Promise((res) => setTimeout(res, delayMs * attempt));
+          continue;
+        }
+        throw err;
+      }
+    }
   }
 
   /**
