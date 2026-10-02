@@ -45,7 +45,7 @@ Phase 2 Correction Pass: Fix null-to-zero display bugs, enforce typography floor
 
 ## AGY Completion Summary
 <!-- AGY fills this section upon completing work -->
-- **Commit SHA:** Pending commit
+- **Commit SHA:** df665a0
 - **Files Modified:** `src/components/ProtectionTier.tsx`, `src/components/ImpactTier.tsx`, `src/components/FoundationTier.tsx`, `src/components/FinancialTier.tsx`, `src/components/TopSensor.tsx`, `src/components/CurrentWeekSection.tsx`, `src/components/WebsiteContainer.tsx`, `src/components/ErrorState.tsx`, `src/utils/drift.ts`, `src/utils/formatters.ts`, `MVP_SCOPE.md`, `CHANGELOG.md`, `context/PROJECT.md`, `context/CURRENT_STATE.md`, `tests/dashboard.test.js`
 - **Test Result:** PASS (32/32 tests passed via npm test; build passes cleanly)
 - **Notes / Observations:** Successfully completed Phase 2 correction pass: fixed null-to-zero display bugs, raised typography floor to 12px (text-xs), removed single-week health drift rule, updated orchestrator context, corrected changelog and MVP_SCOPE.
